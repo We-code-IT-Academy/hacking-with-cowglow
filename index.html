@@ -7,6 +7,34 @@
         <title>Hacking with Cowglow</title> 
     </head>
     <body>
-        
+        <form id="todoInput">
+            <label for="inputField">Add ToDo:</label>
+            <input id="inputField" name="inputField" type="text">
+            <button type="submit">+</button>
+        </form>
+
+        <ul id="todoOutput">
+            <li>We will add our todos here.</li>
+        </ul>
+
+        <script>
+            function AddTodo(todoText) {
+                console.log(todoText)
+            }
+
+            // Handlers
+            function formHandler (event) {
+                event.preventDefault();
+                AddTodo(inputFieldElement.value)
+            }
+
+            // Binding
+            const formElement = document.getElementById("todoInput")
+            formElement.addEventListener("submit", formHandler)
+
+            const inputFieldElement = document.getElementById("inputField")
+
+            const outputListElement = document.getElementById("todoOutput")
+        </script>
     </body>
 </html>
