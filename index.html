@@ -17,24 +17,6 @@
             <li>We will add our todos here.</li>
         </ul>
 
-        <script>
-            function AddTodo(todoText) {
-                console.log(todoText)
-            }
-
-            // Handlers
-            function formHandler (event) {
-                event.preventDefault();
-                AddTodo(inputFieldElement.value)
-            }
-
-            // Binding
-            const formElement = document.getElementById("todoInput")
-            formElement.addEventListener("submit", formHandler)
-
-            const inputFieldElement = document.getElementById("inputField")
-
-            const outputListElement = document.getElementById("todoOutput")
-        </script>
+        <script src="script.js"></script>
     </body>
 </html>
