@@ -1,0 +1,14 @@
+input[type=text], button {
+    padding: 1em 1.5em;
+    margin: 2em 0;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 0.5em 0;
+}
