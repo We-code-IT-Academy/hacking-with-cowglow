@@ -2,19 +2,20 @@ const todoCollection = [];
 const localStorageKey = "todos"
 
 // Binding
-const formElement = document.getElementById("todoInput")
-formElement.addEventListener("submit", formHandler)
+const inputFormElement = document.getElementById("inputForm")
+inputFormElement.addEventListener("submit", formHandler)
 
 const inputFieldElement = document.getElementById("inputField")
 const outputListElement = document.getElementById("todoOutput")
 
-// Local Storage
-const data = JSON.parse(localStorage.getItem(localStorageKey))
-if (data && data.length > 0) {
-    // pre-load the stored data
-    data.forEach(item => {
-        AddTodo(item)
-    })
+// Handlers
+function formHandler (event) {
+    event.preventDefault();
+    console.log(inputFieldElement.value)
+
+    // TODO: continue from here
+    AddTodo(inputFieldElement.value)
+    // inputFieldElement.value = ""
 }
 
 function AddTodo(todoText) {
@@ -30,9 +31,11 @@ function AddTodo(todoText) {
     localStorage.setItem(localStorageKey, JSON.stringify(todoCollection))
 }
 
-// Handlers
-function formHandler (event) {
-    event.preventDefault();
-    AddTodo(inputFieldElement.value)
-    inputFieldElement.value = ""
+// Local Storage
+const data = JSON.parse(localStorage.getItem(localStorageKey))
+if (data && data.length > 0) {
+    // pre-load the stored data
+    data.forEach(item => {
+        AddTodo(item)
+    })
 }
