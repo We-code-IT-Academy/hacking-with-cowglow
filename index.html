@@ -10,12 +10,20 @@
     <body>
         <form id="todoInput">
             <label for="inputField">Add ToDo:</label>
-            <input id="inputField" name="inputField" type="text">
-            <button type="submit">+</button>
+            <input id="inputField" name="inputField" type="text" value="">
+            <button  id="addBtn" type="submit">+</button><br>
+			<button  id="remBtn" type="submit">-</button>
+			<button  id="remAllBtn" type="submit">- all</button>
+			<button  id="remFirstBtn" type="submit">- First</button>
+			<button  id="remLastBtn" type="submit">- Last</button>
+
+
         </form>
+		
 
         <ul id="todoOutput">
         </ul>
+		
 
         <script src="script.js"></script>
     </body>
