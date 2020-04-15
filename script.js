@@ -1,21 +1,15 @@
 const todoCollection = [];
 const localStorageKey = "todos"
 
+var nameId = "id";
+var loop = 1;
+
 // Binding
 const addElement = document.getElementById("addBtn")
 addElement.addEventListener("click", addHandler)
 
-const removeElement = document.getElementById("remBtn")
-removeElement.addEventListener("click", removeHandler)
-
 const removeAllElement = document.getElementById("remAllBtn")
 removeAllElement.addEventListener("click", removeAllHandler)
-
-const removeFirstElement = document.getElementById("remFirstBtn")
-removeFirstElement.addEventListener("click", removeFirstHandler)
-
-const removeLastElement = document.getElementById("remLastBtn")
-removeLastElement.addEventListener("click", removeLastHandler)
 
 const inputFieldElement = document.getElementById("inputField")
 const outputListElement = document.getElementById("todoOutput")
@@ -32,22 +26,32 @@ if (data && data.length > 0) {
 
 function AddTodo(todoText) {
     const element = document.createElement("LI");
-    const elementText = document.createTextNode(todoText);
-	element.id = todoText;
-    element.appendChild(elementText);
+	const elementBtn = document.createElement("button");
+	const elementText = document.createTextNode(todoText);
+	var elementId = nameId+loop;
+	loop++;
+	elementBtn.id = elementId;
+	element.id = elementId;
+	elementBtn.type = "submit";
+	elementBtn.innerHTML = "x";
+	elementBtn.addEventListener("click",function(){ removeHandler(elementBtn.id); });
+
+	element.appendChild(elementText);
+	element.appendChild(elementBtn);
+
 	
     // Update the View
-    outputListElement.appendChild(element);
+	outputListElement.appendChild(element);
 
     // Update the Model
     todoCollection.push(todoText);
-    localStorage.setItem(localStorageKey, JSON.stringify(todoCollection));
+	localStorage.setItem(localStorageKey, JSON.stringify(todoCollection));
+	
 }
 function RemTodo(todoText) {
 	
-	  while (item = document.getElementById(todoText)){
+	  item = document.getElementById(todoText);
 	  outputListElement.removeChild(item);
-	  }
 
 }
 function RemAllTodo(){
@@ -56,40 +60,24 @@ function RemAllTodo(){
 	}
 }
 
-function RemFirstTodo (){
-	if (outputListElement.hasChildNodes()) {
-    outputListElement.removeChild(outputListElement.firstChild);
-	}
-	
-}
 
-function RemLastTodo () {
-	if (outputListElement.hasChildNodes()) {
-    outputListElement.removeChild(outputListElement.lastChild);
-	}
-}
 // Handlers
 function addHandler (event) {
-    event.preventDefault();
+	event.preventDefault();
+	if (inputFieldElement.value.length==0) {alert("Empty Field");}
+	else
+	{
     AddTodo(inputFieldElement.value);
 	inputFieldElement.value = "";
+	}
 }
-function removeHandler (event) {
+function removeHandler (elementToRemoveId) {
 	event.preventDefault();
-	RemTodo(inputFieldElement.value);
-	inputFieldElement.value = "";
+	RemTodo(elementToRemoveId);
+
 }
 function removeAllHandler (event) {
 	event.preventDefault();
 	RemAllTodo();
 	inputFieldElement.value = "";
-}
-
-function removeFirstHandler() {
-	event.preventDefault();
-	RemFirstTodo();
-}
-function removeLastHandler() {
-	event.preventDefault();
-	RemLastTodo();
 }
