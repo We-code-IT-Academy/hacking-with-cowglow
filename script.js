@@ -25,7 +25,7 @@ if (data && data.length > 0) {
 }
 
 function AddTodo(todoText) {
-    const element = document.createElement("LI");
+        const element = document.createElement("LI");
 	const elementBtn = document.createElement("button");
 	const elementText = document.createTextNode(todoText);
 	var elementId = nameId+loop;
@@ -44,7 +44,7 @@ function AddTodo(todoText) {
 	outputListElement.appendChild(element);
 
     // Update the Model
-    todoCollection.push(todoText);
+        todoCollection.push(todoText);
 	localStorage.setItem(localStorageKey, JSON.stringify(todoCollection));
 	
 }
@@ -56,7 +56,7 @@ function RemTodo(todoText) {
 }
 function RemAllTodo(){
 	while (outputListElement.hasChildNodes()) {  
-    outputListElement.removeChild(outputListElement.firstChild);
+        outputListElement.removeChild(outputListElement.firstChild);
 	}
 }
 
@@ -67,7 +67,7 @@ function addHandler (event) {
 	if (inputFieldElement.value.length==0) {alert("Empty Field");}
 	else
 	{
-    AddTodo(inputFieldElement.value);
+        AddTodo(inputFieldElement.value);
 	inputFieldElement.value = "";
 	}
 }
