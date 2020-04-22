@@ -1,8 +1,9 @@
-const todoCollection = [];
+const todoCollection = []
 const localStorageKey = "todos"
 
-var nameId = "id";
-var loop = 1;
+var liId = "li";
+var loop = 0;
+const remBtnText = "X";
 
 // Binding
 const addElement = document.getElementById("addBtn")
@@ -14,69 +15,96 @@ removeAllElement.addEventListener("click", removeAllHandler)
 const inputFieldElement = document.getElementById("inputField")
 const outputListElement = document.getElementById("todoOutput")
 
-
 // Local Storage
 const data = JSON.parse(localStorage.getItem(localStorageKey))
 if (data && data.length > 0) {
-	// pre-load the stored data
-	data.forEach(item => {
-		AddTodo(item)
-	})
+    // pre-load the stored data
+    data.forEach(item => {
+        addTodo(item)
+    })
 }
 
-function AddTodo(todoText) {
-	const element = document.createElement("LI");
-	const elementBtn = document.createElement("button");
-	const elementText = document.createTextNode(todoText);
-	var elementId = nameId + loop;
-	loop++;
-	elementBtn.id = elementId;
-	element.id = elementId;
-	elementBtn.type = "submit";
-	elementBtn.innerHTML = "x";
-	elementBtn.addEventListener("click", function () { removeHandler(elementBtn.id); });
+function createButton(ID) {
+    const elementBtn = document.createElement("button");
+    //elementBtn.id = ID;
+    elementBtn.classList.add("remBtnStyle")
+    elementBtn.type = "submit";
+    elementBtn.innerText = remBtnText;
+    elementBtn.addEventListener("click", function() { removeHandler(elementBtn.parentElement.id); });
+    const elementTemp = document.getElementById(ID)
+    elementTemp.appendChild(elementBtn);
+}
 
-	element.appendChild(elementText);
-	element.appendChild(elementBtn);
+function addTodo(todoText) {
+    //check if item is already there
+    if (todoCollection.includes(todoText)) {
+        alert("item is already in your list");
+        return;
+    }
+    //create li item
+    const element = document.createElement("LI");
+    const elementText = document.createTextNode(todoText);
+    var elementId = liId + loop++;
+    element.id = elementId;
 
+    // Update the View
+    outputListElement.appendChild(element);
+    createButton(elementId);
+    element.appendChild(elementText);
 
-	// Update the View
-	outputListElement.appendChild(element);
-
-	// Update the Model
-	todoCollection.push(todoText);
-	localStorage.setItem(localStorageKey, JSON.stringify(todoCollection));
+    // Update the Model
+    todoCollection.push(todoText);
+    localStorage.setItem(localStorageKey, JSON.stringify(todoCollection));
 
 }
-function RemTodo(todoText) {
 
-	item = document.getElementById(todoText);
-	outputListElement.removeChild(item);
+function remTodo(itemId) {
+    item = document.getElementById(itemId);
+    outputListElement.removeChild(item);
+
+    //remove item from localStorag
+    var itemText = (item.innerText).slice(1); //remove button text "X"
+    index = todoCollection.indexOf(itemText);
+    if (index > -1) {
+        todoCollection.splice(index, 1);
+        localStorage.setItem(localStorageKey, JSON.stringify(todoCollection));
+    }
 
 }
-function RemAllTodo() {
-	while (outputListElement.hasChildNodes()) {
-		outputListElement.removeChild(outputListElement.firstChild);
-	}
+
+function remAllTodo() {
+    while (outputListElement.hasChildNodes()) {
+        outputListElement.removeChild(outputListElement.firstChild);
+    }
+    //remove all items from localStorag
+    localStorage.removeItem(localStorageKey);
 }
 
 
 // Handlers
 function addHandler(event) {
-	event.preventDefault();
-	if (inputFieldElement.value.length == 0) { alert("Empty Field"); }
-	else {
-		AddTodo(inputFieldElement.value);
-		inputFieldElement.value = "";
-	}
+    event.preventDefault();
+    if (inputFieldElement.value.length == 0) { alert("Empty Field"); } else {
+        addTodo(inputFieldElement.value);
+        inputFieldElement.value = "";
+    }
 }
+
 function removeHandler(elementToRemoveId) {
-	event.preventDefault();
-	RemTodo(elementToRemoveId);
+    event.preventDefault();
+    remTodo(elementToRemoveId);
 
 }
+
 function removeAllHandler(event) {
-	event.preventDefault();
-	RemAllTodo();
-	inputFieldElement.value = "";
+    event.preventDefault();
+    if (outputListElement.hasChildNodes()) {
+        Check = confirm("remove all");
+        if (Check == false) return;
+        remAllTodo();
+        inputFieldElement.value = "";
+        return;
+    }
+    alert("nothing to remove");
+    return;
 }
