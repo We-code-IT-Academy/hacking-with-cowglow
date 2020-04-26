@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="Hacking with Cowglow">
-        <meta name="author" content="Philip Saa (@cowglow)">
-        <title>Hacking with Cowglow</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <form id="todoInput">
-            <label for="inputField">Add ToDo:</label>
-            <input id="inputField" name="inputField" type="text">
-            <button type="submit">+</button>
-        </form>
 
-        <ul id="todoOutput">
-        </ul>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Hacking with Cowglow">
+    <meta name="author" content="Philip Saa (@cowglow)">
+    <title>Hacking with Cowglow</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-        <script src="script.js"></script>
-    </body>
+<body>
+    <form id="todoInput">
+        <label for="inputField">Add ToDo:</label>
+        <input id="inputField" name="inputField" type="text" value="" autofocus>
+        <button id="addBtn" type="submit">+</button>
+        <br>
+        <button id="remAllBtn" type="submit">remove all</button>
+
+    </form>
+
+
+    <ul id="todoOutput">
+    </ul>
+
+
+    <script src="script.js"></script>
+</body>
+
 </html>

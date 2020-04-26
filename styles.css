@@ -1,6 +1,21 @@
-input[type=text], button {
+#todoInput {
+    background: lightblue;
+    text-align: center;
+    margin: 0.1em;
+}
+
+#todoOutput {
+    margin: 0.1em;
+}
+
+#remAllBtn {
+    text-align: center;
+}
+
+input[type=text],
+button {
     padding: 1em 1.5em;
-    margin: 2em 0;
+    margin: 1em 0 0;
     box-sizing: border-box;
 }
 
@@ -10,5 +25,18 @@ ul {
 }
 
 li {
-    padding: 0.5em 0;
+    padding: 0.1em 50px;
+    text-align: left;
+    word-break: normal;
+}
+
+li:hover {
+    background-color: lightgrey;
+}
+
+.remBtnStyle {
+    margin: 0.1em 1em 0em;
+    text-align: right;
+    padding: 0.5em;
+    border-radius: 50%;
 }
